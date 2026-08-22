@@ -1,0 +1,153 @@
+/* ============================================================
+   GLOBAL CSS — Birthday Experience Design System
+   Pastel pink palette matching the reference screenshots
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #fce4ec;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Color Tokens ─────────────────────────────────────────── */
+:root {
+  --pink-bg:       #fce4ec;
+  --pink-light:    #ffd6e0;
+  --pink-mid:      #f8bbd0;
+  --pink-deep:     #e91e8c;
+  --pink-btn:      #e91e8c;
+  --purple-title:  #7b2d8b;
+  --red-heart:     #e53935;
+  --text-dark:     #4a1942;
+  --text-mid:      #9c4267;
+  --white:         #ffffff;
+  --shadow:        rgba(233, 30, 140, 0.18);
+  --card-bg:       #fff0f5;
+}
+
+/* ── Screen Container ─────────────────────────────────────── */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+           env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+}
+
+/* ── Confetti Particle ────────────────────────────────────── */
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  opacity: 0.8;
+  animation: confettiFall linear infinite;
+  pointer-events: none;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 0.9; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Floating Hearts ──────────────────────────────────────── */
+.float-heart {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.35;
+  animation: floatHeart ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-18px) scale(1.15); }
+}
+
+/* ── Utility ──────────────────────────────────────────────── */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: 'Nunito', sans-serif;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0,0,0,0);
+  overflow: hidden;
+}
+
+/* ── Keyframe Library ─────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.5); }
+  70%  { transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.3) translateY(40px); }
+  60%  { transform: scale(1.1) translateY(-8px); }
+  80%  { transform: scale(0.96) translateY(4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50%       { transform: rotate(3deg); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.2); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.2); }
+  70%       { transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

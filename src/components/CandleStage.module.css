@@ -1,0 +1,161 @@
+/* CandleStage.module.css */
+.screen {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  background: linear-gradient(160deg, #ffe4f0 0%, #ffd6e8 50%, #ffbad6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 32px;
+  position: relative;
+  overflow: hidden;
+  gap: 24px;
+  transition: background 0.8s ease;
+}
+
+.screenDarkened {
+  background: linear-gradient(170deg, #5C3745 0%, #422430 100%);
+}
+
+.stageContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  color: var(--purple-title);
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+}
+
+.cakeArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.cakeSvg {
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.12));
+}
+
+/* ── Action Area & Pill Button ────────────────────────────── */
+.actionArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+}
+
+.pillButton {
+  position: relative;
+  overflow: hidden;
+  background: #FFE6F0;
+  border: 2px solid #D81B60;
+  border-radius: 24px;
+  padding: 16px 28px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 6px 18px rgba(216,27,96,0.15);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+.pillProgressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #ff80ab 0%, #d81b60 100%);
+  opacity: 0.35;
+  transition: width 0.1s linear;
+  pointer-events: none;
+  border-radius: 20px;
+}
+
+.pillButton:active {
+  transform: scale(0.96);
+  background: #FFD4E5;
+}
+
+.windIcon {
+  font-size: 1.4rem;
+  line-height: 1;
+  z-index: 2;
+}
+
+.pillText {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1.05rem, 4.5vw, 1.25rem);
+  font-weight: 800;
+  color: #B0124A;
+  letter-spacing: 0.01em;
+  z-index: 2;
+}
+
+/* ── Full Screen "Close your eyes & make a wish" View (Matching Screenshot) ───────── */
+.wishScreenView {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 24px 80px;
+  pointer-events: none;
+}
+
+.dimmedCakeArea {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.wishTextOverlay {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  text-align: center;
+  z-index: 10;
+}
+
+.wishMainText {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2.2rem, 9.5vw, 3.4rem);
+  color: #FFFFFF;
+  font-style: italic;
+  line-height: 1.35;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.wishBottomText {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  color: #FFA4C4;
+  font-style: italic;
+  opacity: 0.85;
+  letter-spacing: 0.03em;
+}

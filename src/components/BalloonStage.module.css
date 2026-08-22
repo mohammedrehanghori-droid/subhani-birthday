@@ -1,0 +1,137 @@
+/* BalloonStage.module.css */
+.screen {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  background: linear-gradient(160deg, #ffe4f0 0%, #ffd6e8 50%, #ffbad6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stageContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.5rem, 6.5vw, 2rem);
+  color: var(--pink-deep);
+  text-align: center;
+  margin-bottom: 6px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+}
+
+.balloonGrid {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 400px;
+  flex: 1;
+}
+
+.balloonWrap {
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.balloonSvg {
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
+  transition: filter 0.2s;
+}
+
+.balloonWrap:active .balloonSvg {
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)) brightness(1.05);
+}
+
+/* Revealed Word right where the balloon was popped */
+.revealedWordWrap {
+  position: absolute;
+  width: 110px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.revealedWordText {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2.2rem, 9.5vw, 3rem);
+  color: var(--purple-title);
+  text-shadow: 2.5px 2.5px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Pop particles */
+.popParticles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: rotate(var(--angle)) translateX(0);
+  animation: popParticle 0.4s ease-out forwards;
+}
+
+@keyframes popParticle {
+  to {
+    transform: rotate(var(--angle)) translateX(70px);
+    opacity: 0;
+  }
+}
+
+/* ── Full Screen "You are so ... special" Card View (Matching Screenshot) ───────── */
+.specialCardView {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.specialTopText {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2.2rem, 9vw, 3.2rem);
+  color: #c2185b;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+  letter-spacing: 0.02em;
+}
+
+.specialBottomText {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2.6rem, 11vw, 3.8rem);
+  color: #c2185b;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+  letter-spacing: 0.02em;
+}

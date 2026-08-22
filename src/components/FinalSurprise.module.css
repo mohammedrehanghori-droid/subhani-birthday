@@ -1,0 +1,173 @@
+/* FinalSurprise.module.css */
+.screen {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  background: linear-gradient(160deg, #ffe4f0 0%, #ffd6e8 50%, #ffbad6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px 32px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.confettiField {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.confettiPiece {
+  position: absolute;
+}
+
+/* ── PHASE 1: Gift Screen (Screenshot 1) ───────────────── */
+.giftScreenContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  z-index: 1;
+}
+
+.oneLastThingTitle {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2rem, 8vw, 2.6rem);
+  color: var(--pink-deep);
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.6);
+  margin-bottom: -4px;
+}
+
+.tapGiftSubtitle {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.3rem, 5.5vw, 1.7rem);
+  color: var(--purple-title);
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.giftWrapper {
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 12px 24px rgba(233,30,140,0.25));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdownNumber {
+  font-family: 'Pacifico', cursive;
+  font-size: 3.5rem;
+  color: var(--pink-deep);
+  text-shadow: 2px 2px 0 white, 0 0 15px rgba(233,30,140,0.4);
+  margin-top: 16px;
+  min-height: 60px;
+}
+
+/* ── PHASE 2: Final Reveal (Screenshot 3) ──────────────── */
+.finalScreenContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 340px;
+  z-index: 1;
+}
+
+/* White Card matching Screenshot 3 */
+.card {
+  background: white;
+  border-radius: 28px;
+  padding: 24px 20px 16px;
+  box-shadow: 0 16px 48px rgba(233,30,140,0.18);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border: 3px solid rgba(255,182,193,0.3);
+}
+
+.heartBadge {
+  position: absolute;
+  top: -16px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  background: #FF4D88;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(255,77,136,0.35);
+  color: white;
+  animation: heartBeat 1.4s ease-in-out infinite;
+}
+
+.characters {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Love Block below card matching Screenshot 3 */
+.loveBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.loveText {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+  color: var(--pink-deep);
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.redHeartEmoji {
+  font-size: 1.8rem;
+  animation: heartBeat 1.3s ease-in-out infinite;
+}
+
+.wishText {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1rem, 4.2vw, 1.25rem);
+  font-weight: 700;
+  color: var(--purple-title);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.replayBtn {
+  margin-top: 16px;
+  background: white;
+  color: var(--purple-title);
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 13px 44px;
+  border-radius: 50px;
+  border: 2px solid #F0C0D8;
+  box-shadow: 0 6px 20px rgba(233,30,140,0.15);
+  font-family: 'Nunito', sans-serif;
+  transition: transform 0.15s;
+}
+
+.replayBtn:active { transform: scale(0.94); }

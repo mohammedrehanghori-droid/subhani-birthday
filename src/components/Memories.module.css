@@ -1,0 +1,221 @@
+/* Memories.module.css */
+.screen {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  background: linear-gradient(160deg, #ffe4f0 0%, #ffd6e8 50%, #ffbad6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 16px 24px;
+  position: relative;
+  overflow: hidden;
+  gap: 12px;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  color: var(--pink-deep);
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.tagline {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.1rem, 5vw, 1.5rem);
+  color: var(--purple-title);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ── Card area ───────────────────────────── */
+.cardArea {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.bgCard {
+  position: absolute;
+  width: 260px;
+  height: 300px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.activeCardWrap {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.cardWrap {
+  width: 260px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.cardWrap:active { cursor: grabbing; }
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 14px 14px 18px;
+  box-shadow: 0 12px 32px rgba(233,30,140,0.18);
+  position: relative;
+  border: 3px solid rgba(255,182,193,0.4);
+}
+
+.photoFrame {
+  width: 100%;
+  height: 230px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fce4ec;
+  position: relative;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+}
+
+.placeholderEmoji { font-size: 2.5rem; }
+.placeholderText {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  color: var(--text-mid);
+  font-size: 1rem;
+}
+.placeholderSub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-mid);
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+.caption {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.15rem, 4.8vw, 1.45rem);
+  font-weight: 700;
+  color: var(--pink-deep);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.sticker {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  font-size: 1.4rem;
+  transform: rotate(15deg);
+}
+
+/* ── Dots ─────────────────────────────────── */
+.dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(233,30,140,0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+  padding: 0;
+}
+
+.dotActive {
+  background: var(--pink-deep);
+  transform: scale(1.25);
+}
+
+/* ── Arrows ───────────────────────────────── */
+.arrows {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 4px;
+}
+
+.arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #f0c0d8;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(233,30,140,0.12);
+  transition: transform 0.15s, opacity 0.15s;
+  line-height: 1;
+}
+
+.arrow:active { transform: scale(0.9); }
+.arrowDisabled { opacity: 0.3; cursor: default; }
+
+.arrowLabel {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  font-weight: 700;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* ── Continue btn ─────────────────────────── */
+.continueBtn {
+  background: var(--pink-deep);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 14px 48px;
+  border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(233,30,140,0.35);
+  font-family: 'Nunito', sans-serif;
+  margin-top: 6px;
+  transition: transform 0.15s;
+}

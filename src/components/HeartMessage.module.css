@@ -1,0 +1,133 @@
+/* HeartMessage.module.css */
+.screen {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  background: linear-gradient(160deg, #ffe4f0 0%, #ffd6e8 50%, #ffbad6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 32px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 24px;
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  color: var(--purple-title);
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+  flex-shrink: 0;
+}
+
+/* ── Envelope (Matching Screenshot 1) ─────────────────────── */
+.envelopeWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 20px;
+}
+
+.envelopeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.envelopeSvg {
+  filter: drop-shadow(0 14px 30px rgba(216,27,96,0.22));
+}
+
+.svgFlap {
+  transform-origin: 140px 6px;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.svgFlapOpen {
+  transform: rotateX(-180deg);
+}
+
+.envelopeHint {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: var(--pink-deep);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* ── Letter ───────────────────────────────── */
+.letterWrap {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.letter {
+  background: white;
+  border-radius: 20px;
+  padding: 24px 20px 28px;
+  box-shadow: 0 12px 40px rgba(233,30,140,0.15);
+  width: 100%;
+  border: 2px solid rgba(255,182,193,0.4);
+  position: relative;
+}
+
+/* Paper lines decoration */
+.letter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(233,30,140,0.06) 27px,
+    rgba(233,30,140,0.06) 28px
+  );
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.letterText {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+  line-height: 1.95;
+  color: var(--text-dark);
+  font-weight: 600;
+  white-space: pre-wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--pink-deep);
+  animation: blink 0.8s step-end infinite;
+  font-weight: 400;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.continueBtn {
+  background: var(--pink-deep);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 14px 48px;
+  border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(233,30,140,0.35);
+  font-family: 'Nunito', sans-serif;
+  transition: transform 0.15s;
+}
