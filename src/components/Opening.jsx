@@ -6,34 +6,37 @@ import styles from './Opening.module.css';
 // Confetti colors matching reference pastel palette
 const CONFETTI_COLORS = ['#FF9AC1','#FFD700','#87CEEB','#98FB98','#DDA0DD','#FF6B9D','#FFC0CB','#B0E0E6'];
 
+const STATIC_CONFETTI_PIECES = Array.from({ length: 28 }, (_, i) => ({
+  id: i,
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  left: `${((i * 3.7 + 12) % 100)}%`,
+  delay: `${(i * 0.12) % 3}s`,
+  duration: `${3.5 + (i % 5) * 0.5}s`,
+  size: `${6 + (i % 4) * 2}px`,
+  shape: i % 2 === 0 ? '50%' : '2px',
+}));
+
 function Confetti() {
-  const pieces = Array.from({ length: 28 }, (_, i) => ({
-    id: i,
-    color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-    left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 3}s`,
-    duration: `${3 + Math.random() * 3}s`,
-    size: `${6 + Math.random() * 6}px`,
-    shape: Math.random() > 0.5 ? '50%' : '2px',
-  }));
   return (
     <>
-      {pieces.map(p => (
-        <div
-          key={p.id}
-          className="confetti-particle"
-          style={{
-            left: p.left,
-            top: '-10px',
-            width: p.size,
-            height: p.size,
-            background: p.color,
-            borderRadius: p.shape,
-            animationDuration: p.duration,
-            animationDelay: p.delay,
-          }}
-        />
-      ))}
+      {STATIC_CONFETTI_PIECES.map((p) => {
+        return (
+          <div
+            key={p.id}
+            className="confetti-particle"
+            style={{
+              left: p.left,
+              top: '-10px',
+              width: p.size,
+              height: p.size,
+              background: p.color,
+              borderRadius: p.shape,
+              animationDuration: p.duration,
+              animationDelay: p.delay,
+            }}
+          />
+        );
+      })}
     </>
   );
 }
@@ -244,7 +247,6 @@ export default function Opening({ onNext }) {
     const parent = el.parentElement;
     if (!parent) return;
     const parentRect = parent.getBoundingClientRect();
-    const rect = el.getBoundingClientRect();
 
     const maxDeltaX = Math.min(120, parentRect.width / 2 - 40);
     const maxDeltaY = 70;

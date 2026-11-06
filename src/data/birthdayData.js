@@ -4,12 +4,12 @@
 // ============================================================
 
 export const birthdayData = {
-  name: "Subhani",
-  relationship: "Brother",
+  name: "Ayesha",
+  relationship: "Sister",
 
   // ── Opening ─────────────────────────────────────────────
   openingTitle: "Happy Birthday,",
-  openingName: "Subhani 🎂",
+  openingName: "Ayesha 🎂",
   openingQuestion: "Are you excited for what's next?",
 
   // ── Balloon Stage ────────────────────────────────────────
@@ -18,51 +18,34 @@ export const birthdayData = {
   specialEmoji: "❤️",
 
   // ── Candle Stage ────────────────────────────────────────
-  candleTitle: "Blow the candles, Subhani",
+  candleTitle: "Blow the candles, Ayesha",
   candleSubtitle: "Blow into your phone mic 🎤",
+  candleDuaText: "Here we go...\nLet me make a dua for you to qabool your wish inshallah🤍",
 
-  // ── Memories ────────────────────────────────────────────
-  memoriesTitle: "Some Sweet Moments",
-  memoriesSubtitle: "(Swipe the cards)",
-  memoriesTagline: "Celebrating you 🎉",
-
-  photos: [
-    {
-      src: "/assets/photos/photo1.jpg",
-      caption: "Happy birthday 🎊",
-    },
-    {
-      src: "/assets/photos/photo2.jpg",
-      caption: "celebrating you 💖",
-    },
-    {
-      src: "/assets/photos/photo3.jpg",
-      caption: "make a wish ✨",
-    },
-    {
-      src: "/assets/photos/photo4.jpg",
-      caption: "happy birthday 🎂",
-    },
+  // ── Rose Bouquet ──────────────────────────────────────────
+  bouquetTitle: "Your Rose Bouquet 🌹",
+  bouquetMessages: [
+    { id: 1, text: "For your kindness🤍", pos: "topLeft" },
+    { id: 2, text: "For your smile😊", pos: "topRight" },
+    { id: 3, text: "for your charecter✨", pos: "midLeft" },
+    { id: 4, text: "Happy Birthday❤️", pos: "midRight" },
+    { id: 5, text: "For your patience\nand bearing😛", pos: "botLeft" },
+    { id: 6, text: "you deserve it🙌", pos: "botRight" },
   ],
 
   // ── Letter ───────────────────────────────────────────────
-  letterTitle: "A Message From My Heart",
+  letterTitle: "A Letter You Deserve🤍",
 
-  letter: `Dear subhani,
-
-Where do I even begin? A single letter is not actually enough to describe my love towards you but you're not just my brother - you're one of the most important people in my life❤️🩹
+  letter: `You are Sweet Soul, Kind Hearted and Always There,thank you so much...
 
 
-You're always a blessing for me from Allah!
-I just want u to know you are deeply loved 🎀.you are enough💗
+You are rare in the way your presence feels different, rare in the way your kindness comes naturally, rare in the way your smile can brighten someone’s day, so if you ever feel solitude just have to remember I'm there, Do not hesitate about it!✌️
 
 
-ye bhaichara duniya aur aakhirat tak sath rahegi Inshallah 💖,May Allah bless you with success and bring u everything your heart's quietly hoping for🤍.
-
-Happy birthday bhai🫂`,
+May Allah bless you with a long life filled with barakah, good health, happiness and peace; accept your duas, forgive your shortcomings, and surround you with great people. Ameen. 🤍✨`,
 
   // ── Final Surprise ───────────────────────────────────────
   finalTitle: "One Last Surprise",
-  finalLove: "Lots of love for you ❤️",
-  finalWish: "Once again, Happy Birthday Subhani!",
+  finalLove: "Lots Of Dua for You🤍",
+  finalWish: "Once again, Happy Birthday Ayesha!",
 };

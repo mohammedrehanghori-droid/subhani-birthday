@@ -8,8 +8,6 @@ function useTypewriter(text, speed = 28, startDelay = 0) {
   const [displayed, setDisplayed] = useState('');
   const [done, setDone] = useState(false);
   useEffect(() => {
-    setDisplayed('');
-    setDone(false);
     let i = 0;
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
@@ -29,9 +27,10 @@ function useTypewriter(text, speed = 28, startDelay = 0) {
 
 export default function HeartMessage({ onNext }) {
   const [phase, setPhase] = useState('envelope'); // envelope | opening | letter
+  const [isSkipped, setIsSkipped] = useState(false);
   const { displayed, done: typeDone } = useTypewriter(
     birthdayData.letter,
-    22,
+    16,
     phase === 'letter' ? 0 : 99999
   );
 
@@ -39,6 +38,9 @@ export default function HeartMessage({ onNext }) {
     if (phase === 'envelope') setPhase('opening');
     setTimeout(() => setPhase('letter'), 900);
   };
+
+  const textToDisplay = isSkipped ? birthdayData.letter : displayed;
+  const isFinished = typeDone || isSkipped;
 
   return (
     <div className={styles.screen}>
@@ -134,29 +136,29 @@ export default function HeartMessage({ onNext }) {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 0.65, type: 'spring', stiffness: 170, damping: 15 }}
           >
-            <div className={styles.letter}>
+            <div className={styles.letter} onClick={() => setIsSkipped(true)}>
               {/* Typewriter text */}
               <div className={styles.letterText}>
-                {displayed.split('\n').map((line, i) => (
+                {textToDisplay.split('\n').map((line, i) => (
                   <span key={i}>
                     {line || '\u00A0'}
                     <br />
                   </span>
                 ))}
-                {!typeDone && <span className={styles.cursor}>|</span>}
+                {!isFinished && <span className={styles.cursor}>|</span>}
               </div>
             </div>
 
             {/* Continue button */}
             <AnimatePresence>
-              {typeDone && (
+              {isFinished && (
                 <motion.button
                   id="letter-continue-btn"
                   className={styles.continueBtn}
                   onClick={onNext}
                   initial={{ opacity: 0, y: 20, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.4, type: 'spring', stiffness: 200, damping: 14 }}
+                  transition={{ delay: 0.2, type: 'spring', stiffness: 200, damping: 14 }}
                   whileTap={{ scale: 0.94 }}
                 >
                   One Last Surprise ✨

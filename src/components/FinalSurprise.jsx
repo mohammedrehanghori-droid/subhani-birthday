@@ -1,38 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { birthdayData } from '../data/birthdayData';
 import styles from './FinalSurprise.module.css';
 
 // Confetti burst
+const CONFETTI_COLORS = ['#FF9AC1','#FFD700','#87CEEB','#98FB98','#DDA0DD','#FF6B9D','#FFC0CB','#B0E0E6'];
+
+const FINAL_CONFETTI_PIECES = Array.from({ length: 45 }, (_, i) => ({
+  id: i,
+  left: `${((i * 7.3 + 5) % 96)}%`,
+  size: `${6 + (i % 5) * 1.5}px`,
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  borderRadius: i % 2 === 0 ? '50%' : '2px',
+  rotate: i % 2 === 0 ? 540 : -540,
+  duration: 2.5 + (i % 5) * 0.4,
+  delay: (i * 0.08) % 1.2,
+}));
+
 function Confetti({ active }) {
-  const COLORS = ['#FF9AC1','#FFD700','#87CEEB','#98FB98','#DDA0DD','#FF6B9D','#FFC0CB','#B0E0E6'];
   if (!active) return null;
   return (
     <div className={styles.confettiField} aria-hidden>
-      {Array.from({ length: 45 }, (_, i) => (
-        <motion.div
-          key={i}
-          className={styles.confettiPiece}
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: '-10px',
-            width: `${6 + Math.random() * 7}px`,
-            height: `${6 + Math.random() * 7}px`,
-            background: COLORS[i % COLORS.length],
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
-          }}
-          animate={{
-            y: ['0px', '110vh'],
-            rotate: [0, Math.random() > 0.5 ? 540 : -540],
-            opacity: [1, 0.8, 0],
-          }}
-          transition={{
-            duration: 2.5 + Math.random() * 2,
-            delay: Math.random() * 1.2,
-            ease: 'linear',
-          }}
-        />
-      ))}
+      {FINAL_CONFETTI_PIECES.map((piece) => {
+        return (
+          <motion.div
+            key={piece.id}
+            className={styles.confettiPiece}
+            style={{
+              left: piece.left,
+              top: '-10px',
+              width: piece.size,
+              height: piece.size,
+              background: piece.color,
+              borderRadius: piece.borderRadius,
+            }}
+            animate={{
+              y: ['0px', '110vh'],
+              rotate: [0, piece.rotate],
+              opacity: [1, 0.8, 0],
+            }}
+            transition={{
+              duration: piece.duration,
+              delay: piece.delay,
+              ease: 'linear',
+            }}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -268,7 +282,7 @@ export default function FinalSurprise({ onReplay }) {
               transition={{ delay: 0.3, duration: 0.5 }}
             >
               <p className={styles.loveText}>
-                Lots of love for you <span className={styles.redHeartEmoji}>❤️</span>
+                {birthdayData.finalLove}
               </p>
               <p className={styles.wishText}>
                 Once again, Happy Birthday<br />{birthdayData.name}!

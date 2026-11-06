@@ -25,7 +25,7 @@ function Candle({ lit, flickerIntensity = 0, airflow = 0, smoke = false }) {
           style={{ transformOrigin: '50px 20px' }}
         >
           {/* Flame Glow */}
-          <circle cx="50" cy="14" r="14" fill="#FFC107" opacity="0.35" style={{ filter: 'blur(3px)' }} />
+          <circle cx="50" cy="14" r={14 + flickerIntensity * 2} fill="#FFC107" opacity={0.35 + flickerIntensity * 0.1} style={{ filter: 'blur(3px)' }} />
           {/* Outer flame */}
           <ellipse cx="50" cy="14" rx="5.5" ry="9.5" fill="#FF9800" />
           {/* Inner flame */}
@@ -158,7 +158,9 @@ async function startMicDetection({ onLevel, onProgress, onBlow, onError }) {
           running = false;
           onBlow();
           stream.getTracks().forEach(t => t.stop());
-          ctx.close();
+          if (ctx.state !== 'closed') {
+            ctx.close().catch(() => {});
+          }
           return;
         }
       }
@@ -169,12 +171,39 @@ async function startMicDetection({ onLevel, onProgress, onBlow, onError }) {
     return () => {
       running = false;
       stream.getTracks().forEach(t => t.stop());
-      ctx.close();
+      if (ctx.state !== 'closed') {
+        ctx.close().catch(() => {});
+      }
     };
   } catch (err) {
     if (onError) onError(err);
     return () => {};
   }
+}
+
+// ── Typewriter hook matching HeartMessage ─────────────────────────────────
+function useTypewriter(text, speed = 28, startDelay = 0, active = false) {
+  const [displayed, setDisplayed] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (!active) return;
+    let i = 0;
+    const timer = setTimeout(() => {
+      const interval = setInterval(() => {
+        i++;
+        setDisplayed(text.slice(0, i));
+        if (i >= text.length) {
+          clearInterval(interval);
+          setDone(true);
+        }
+      }, speed);
+      return () => clearInterval(interval);
+    }, startDelay);
+    return () => clearTimeout(timer);
+  }, [text, speed, startDelay, active]);
+
+  return { displayed, done };
 }
 
 export default function CandleStage({ onNext }) {
@@ -184,10 +213,27 @@ export default function CandleStage({ onNext }) {
   const [blown, setBlown] = useState(false);
   const [showSmoke, setShowSmoke] = useState(false);
   const [showWishScreen, setShowWishScreen] = useState(false);
+  const [showDuaScreen, setShowDuaScreen] = useState(false);
+  const [isDuaSkipped, setIsDuaSkipped] = useState(false);
   const stopMicRef = useRef(null);
+  const timeoutsRef = useRef([]);
+
+  const duaText = birthdayData.candleDuaText || "Here we go...\nLet me make a dua for you to qabool your wish inshallah🤍";
+  const { displayed: duaDisplayed, done: duaDone } = useTypewriter(
+    duaText,
+    35,
+    300,
+    showDuaScreen
+  );
+  const textToDisplay = isDuaSkipped ? duaText : duaDisplayed;
+  const isFinished = duaDone || isDuaSkipped;
 
   useEffect(() => {
-    return () => { if (stopMicRef.current) stopMicRef.current(); };
+    const timeouts = timeoutsRef.current;
+    return () => {
+      if (stopMicRef.current) stopMicRef.current();
+      timeouts.forEach(clearTimeout);
+    };
   }, []);
 
   const triggerExtinguish = () => {
@@ -198,12 +244,25 @@ export default function CandleStage({ onNext }) {
     setBlowProgress(100);
     if (stopMicRef.current) stopMicRef.current();
 
-    // Smoke rises -> show "Close your eyes & make a wish" screen for 5 seconds -> continue next
-    setTimeout(() => {
+    // 1. Smoke rises (600ms) -> show "Close your eyes & make a wish" screen for 5 seconds
+    const t1 = setTimeout(() => {
       setShowSmoke(false);
       setShowWishScreen(true);
-      setTimeout(onNext, 5000);
+
+      // 2. After 5 seconds, switch to the 5-second Dua screen
+      const t2 = setTimeout(() => {
+        setShowWishScreen(false);
+        setShowDuaScreen(true);
+
+        // 3. After 5 seconds on Dua screen, continue to Rose Bouquet
+        const t3 = setTimeout(() => {
+          onNext();
+        }, 5000);
+        timeoutsRef.current.push(t3);
+      }, 5000);
+      timeoutsRef.current.push(t2);
     }, 600);
+    timeoutsRef.current.push(t1);
   };
 
   const handlePillButtonClick = () => {
@@ -232,14 +291,14 @@ export default function CandleStage({ onNext }) {
   const flickerIntensity = phase === 'listening' ? micLevel * 1.8 : 0;
 
   return (
-    <div className={`${styles.screen} ${showWishScreen ? styles.screenDarkened : ''}`}>
+    <div className={`${styles.screen} ${(showWishScreen || showDuaScreen) ? styles.screenDarkened : ''}`}>
       {/* Floating hearts */}
       {[...Array(5)].map((_, i) => (
         <div key={i} className="float-heart" style={{ left: `${12 + i * 18}%`, top: `${10 + (i%3)*22}%`, animationDelay: `${i*0.4}s` }}>🩷</div>
       ))}
 
       <AnimatePresence mode="wait">
-        {!showWishScreen ? (
+        {!showWishScreen && !showDuaScreen && (
           <motion.div
             key="candle-lit-view"
             className={styles.stageContent}
@@ -298,13 +357,16 @@ export default function CandleStage({ onNext }) {
               )}
             </div>
           </motion.div>
-        ) : (
+        )}
+
+        {showWishScreen && (
           /* Full screen "Close your eyes & make a wish" view matching attached screenshot */
           <motion.div
             key="wish-screen-view"
             className={styles.wishScreenView}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5 } }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
             {/* Dimmed Cake in background */}
@@ -333,6 +395,37 @@ export default function CandleStage({ onNext }) {
             >
               Make a wish...
             </motion.p>
+          </motion.div>
+        )}
+
+        {showDuaScreen && (
+          /* Full screen Dua message view before going into Rose Bouquet */
+          <motion.div
+            key="dua-screen-view"
+            className={styles.duaScreenView}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            onClick={() => setIsDuaSkipped(true)}
+          >
+            {/* Dimmed Cake in background */}
+            <div className={styles.dimmedCakeArea}>
+              <BirthdayCake lit={false} flickerIntensity={0} airflow={0} smoke={false} dimmed={true} />
+            </div>
+
+            {/* Dua text container matching letter typewriter animation and styling */}
+            <div className={styles.duaTextContainer}>
+              <p className={styles.duaText}>
+                {textToDisplay.split('\n').map((line, i) => (
+                  <span key={i}>
+                    {line || '\u00A0'}
+                    <br />
+                  </span>
+                ))}
+                {!isFinished && <span className={styles.cursor}>|</span>}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
